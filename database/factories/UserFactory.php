@@ -24,6 +24,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'profile_pic_asset' => array_rand($this->profile_pictures_assets, 1)
         ];
     }
 
@@ -36,4 +37,14 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    private $profile_pictures_assets = array(
+        'profile_pictures/cat_0.jpeg',
+        'profile_pictures/cat_1.jpeg',
+        'profile_pictures/cat_2.jpeg',
+        'profile_pictures/cat_3.jpeg',
+        'profile_pictures/cat_4.jpeg',
+        'profile_pictures/cat_5.jpeg',
+        'profile_pictures/cat_0.jpeg',
+    );
 }
