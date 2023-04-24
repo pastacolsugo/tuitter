@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $raw_posts = Post::all()->random(10);
+    $posts = [];
+    foreach ($raw_posts as $p) {
+        $author = User::where('id', $p->author_id)->take(1)->get()[0]->username;
+        $post = array(
+            'author'=>$author,
+            'content'=>$p->content,
+            'date'=>$p->created_at->toDateTimeString(),
+        );
+        array_push($posts, $post);
+    }
+
+    return view('home', [
+        'posts' => $posts,
+    ]);
 })->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function () {
