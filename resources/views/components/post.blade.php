@@ -1,7 +1,10 @@
-<div {{ $attributes->merge(['class' => 'mt-2 md:mt-0 p-4 md:pt-6 px-6 bg-white border-b-2 md:border-x-2 flex justify-start']) }}>
-    <figure class="mr-4 w-14 h-14 overflow-hidden rounded-full shrink-0">
-        <img src="{{ asset('profile_pictures/test.webp')}}"
-        class="max-h-20 object-contain">
+<div {{ $attributes->merge(['class' => 'mt-2 p-4 px-6 bg-white dark:bg-black dark:text-white border-b border-t border-x border-neutral-300 dark:border-neutral-800 flex justify-start']) }}>
+    <figure class="mr-4 w-14 h-14 bg-black border-white object-scale-down overflow-hidden rounded-full shrink-0 flex flex-col justify-center">
+        @if (isset($profilePictureAsset))
+            <img src="{{ asset($profilePictureAsset) }}" class="max-h-20 object-contain">
+        @else
+            <img src="{{ asset('profile_pictures/default.svg') }}" class="max-h-20 object-contain">
+        @endif
     </figure>
     <div class="grow">
         <div class="flex justify-between items-baseline">

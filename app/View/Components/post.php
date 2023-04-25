@@ -8,15 +8,16 @@ use Illuminate\View\Component;
 
 class post extends Component
 {
-    public $author, $date, $content;
+    public $author, $date, $content, $profilePictureAsset;
     /**
      * Create a new component instance.
      */
-    public function __construct($author, $date, $content)
+    public function __construct($author, $date, $content, $ppa)
     {
         $this->author = $author;
         $this->date = $date;
         $this->content = $content;
+        $this->profilePictureAsset = $ppa;
     }
 
     /**

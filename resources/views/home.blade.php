@@ -8,11 +8,7 @@
             </div> --}}
 
             @foreach ($posts as $p)
-                @if ($loop->first)
-                    <x-post class="md:border-t-2" :author="$p['author']" :date="$p['date']" :content="$p['content']" ></x-post>
-                    @continue
-                @endif
-                <x-post :author="$p['author']" :date="$p['date']" :content="$p['content']" ></x-post>
+                <x-post :author="$p['author']" :date="$p['date']" :content="$p['content']" :ppa="$p['profilepictureasset']"></x-post>
             @endforeach
         </div>
     </div>

@@ -17,14 +17,17 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    $raw_posts = Post::all()->random(10);
+    $raw_posts = Post::all()->random(20);
     $posts = [];
     foreach ($raw_posts as $p) {
-        $author = User::where('id', $p->author_id)->take(1)->get()[0]->username;
+        $user = User::where('id', $p->author_id)->take(1)->get()[0];
+        $profile_picture_asset = $user->profile_pic_asset;
+        $author = $user->username;
         $post = array(
-            'author'=>$author,
-            'content'=>$p->content,
-            'date'=>$p->created_at->toDateTimeString(),
+            'author' => $author,
+            'content' => $p->content,
+            'date' => $p->created_at->toDateTimeString(),
+            'profilepictureasset' => $profile_picture_asset,
         );
         array_push($posts, $post);
     }
