@@ -46,5 +46,17 @@ class UserFactory extends Factory
         'profile_pictures/cat_4.jpeg',
         'profile_pictures/cat_5.jpeg',
         'profile_pictures/cat_6.jpeg',
+        'profile_pictures/cat_6.jpeg',
+        'profile_pictures/cat_7.jpeg',
+        'profile_pictures/pepe.jpeg',
+        'profile_pictures/gumball.jpeg',
+        'profile_pictures/harold.jpeg',
+        'profile_pictures/hasbulla.jpeg',
+        'profile_pictures/leo.jpeg',
+        'profile_pictures/paperinoh.jpeg',
+        'profile_pictures/pepe.jpeg',
+        'profile_pictures/pickachu.jpeg',
+        'profile_pictures/spongebob.jpeg',
+        'profile_pictures/will_shrek.jpeg',
     );
 }
