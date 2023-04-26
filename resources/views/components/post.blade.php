@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => 'mt-2 p-4 px-6 bg-white dark:bg-black dark:text-white border-b border-t border-x border-neutral-300 dark:border-neutral-800 flex justify-start']) }}>
+<div {{ $attributes->merge(['class' => 'mt-2 p-4 px-6 bg-white dark:bg-black dark:text-white border-b border-t sm:border-x border-neutral-300 dark:border-neutral-800 flex justify-start']) }}>
     <figure class="mr-4 w-14 h-14 bg-black border-white object-scale-down overflow-hidden rounded-full shrink-0 flex flex-col justify-center">
         @if (isset($profilePictureAsset))
             <img src="{{ asset($profilePictureAsset) }}" class="max-h-20 object-contain">
