@@ -8,7 +8,10 @@
     </figure>
     <div class="grow">
         <div class="flex justify-between items-baseline">
-            <div class="text-xl font-bold">{{ $author }}</div>
+            <div class="flex flex-col space-between">
+                <div class="text-xl font-bold">{{ $author_name }}</div>
+                <div class="text-md text-neutral-600 dark:text-neutral-400 font-light">&#64;{{ $author_username }}</div>
+            </div>
             <div class="text-sm text-gray-400">{{ $date }}</div>
         </div>
         <div class="text-lg my-4">{{ $content }}</div>
@@ -16,9 +19,9 @@
             <div>{{ $reply_to }}</div>
         @endif
         <div class="flex gap-4 mt-4 justify-around text-gray-500 font-light">
-            <span class="material-symbols-outlined">favorite</span>
-            <span class="material-symbols-outlined">chat_bubble</span>
-            <span class="material-symbols-outlined">share</span>
+            <span data-post-id={{ $post_id }} class="{{ ($liked ? 'text-red-500' : '')." like_button material-symbols-outlined" }}">favorite</span>
+            <span data-post-id={{ $post_id }} class="reply_button material-symbols-outlined">chat_bubble</span>
+            <span data-post-id={{ $post_id }} class="share_button material-symbols-outlined">share</span>
         </div>
     </div>
 </div>

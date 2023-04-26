@@ -7,8 +7,8 @@
                 </div>
             </div> --}}
 
-            @foreach ($posts as $p)
-                <x-post :author="$p['author']" :date="$p['date']" :content="$p['content']" :ppa="$p['profilepictureasset']"></x-post>
+            @foreach ($posts as $post_id)
+                <x-post :id="$post_id"></x-post>
             @endforeach
         </div>
     </div>
