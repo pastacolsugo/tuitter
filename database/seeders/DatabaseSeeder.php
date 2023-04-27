@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(20)->create();
         \App\Models\Post::factory(50)->create();
         \App\Models\Follow::factory(50)->create();
+        \App\Models\Reply::factory(200)->create();
 
         \App\Models\Like::factory(100)->create();
         // cleanup possible like dups
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
         foreach ($duplicate_likes as $dl) {
             Like::where('user_id', $dl->user_id)->where('post_id', $dl->post_id)->take($dl->count_)->delete();
         }
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

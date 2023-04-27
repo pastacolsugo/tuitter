@@ -27,14 +27,20 @@ class Post extends Component
         if ($post == null) {
             return null;
         }
-        $user = User::where('id', $post->author_id)->take(1)->get()[0];
-        $liked_count = Like::where('user_id', $user->id)->where('post_id', $id)->count();
-        $this->liked = $liked_count > 0;
-        $this->author_username = $user->username;
-        $this->author_name = $user->name;
+        // $user = Auth::id();
+        $user = null;
+        $author = User::where('id', $post->author_id)->take(1)->get()[0];
+        $this->author_username = $author->username;
+        $this->author_name = $author->name;
         $this->date = $post->created_at->toDateTimeString();
         $this->content = $post->content;
-        $this->profilePictureAsset = $user->profile_pic_asset;
+        $this->profilePictureAsset = $author->profile_pic_asset;
+        if ($user === null) {
+            $this->liked = False;
+            return;
+        }
+        $liked_count = Like::where('user_id', $user->id)->where('post_id', $id)->count();
+        $this->liked = $liked_count > 0;
     }
 
     /**

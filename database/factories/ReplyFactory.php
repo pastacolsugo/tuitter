@@ -3,12 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Post;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reply>
  */
-class PostFactory extends Factory
+class ReplyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +17,8 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'author_id' => fake()->numberBetween(1, 20),
+            'post_id' => fake()->numberBetween(1, 50),
+            'author_id' => fake()->numberBetween(1, 21),
             'content' => fake()->sentence(),
         ];
     }
