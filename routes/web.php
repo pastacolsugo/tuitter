@@ -182,6 +182,22 @@ Route::get('/replies', function(Request $request) {
     ]);
 })->middleware(['auth', 'verified'])->name('replies');
 
+Route::post('/reply', function(Request $request) {
+    if (Auth::id() === null) {
+        return Response('User not logged in', 401);
+    }
+    $user_id = Auth::id();
+    $body = json_decode($request->getContent());
+    $post_id = $body->postID;
+    $content = $body->reply;
+
+    $reply = new Reply();
+    $reply->post_id = $post_id;
+    $reply->author_id = $user_id;
+    $reply->content = $content;
+    $reply->save();
+})->middleware(['auth', 'verified'])->name('reply');
+
 Route::get('/letest', function(Request $req) {
     return view('letest');
 })->middleware(['auth', 'verified'])->name('letest');

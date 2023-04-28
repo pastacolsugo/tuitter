@@ -11,10 +11,10 @@
                     <img src="{{ asset('profile_pictures/default.svg') }}" class="max-h-20 object-contain">
                 @endif
             </figure>
-            <form class="grow flex items-bottom" action="javascript:void(0);">
+            <form class="grow flex items-bottom" action="javascript:void(0);" onkeydown="return event.key != 'Enter';">
                 <label class="hidden" for="reply-{{ $post_id }}">Write reply to post {{ $post_id }}</label>
-                <input class="w-[100%] p-1 px-2 border border-neutral-300 rounded-none" rows="2" type="textarea" data-post-id={{ $post_id }} id="reply-{{ $post_id }}" name="reply" placeholder="Reply...">
-                <button class="mx-2" data-post-id="{{ $post_id }}" type="submit"><span class="submit_reply_button text-4xl text-gray-500 material-symbols-outlined cursor-default">send</span></button>
+                <input class="w-[100%] p-1 px-2 border border-neutral-300 dark:border-neutral-800 text-black dark:text-white bg-white dark:bg-black rounded-none" rows="2" type="textarea" data-post-id={{ $post_id }} id="reply-{{ $post_id }}" name="reply" placeholder="Reply...">
+                <button class="mx-2" data-post-id={{ $post_id }} type="submit"><span data-post-id={{ $post_id }} class="submit_reply_button text-4xl text-gray-500 material-symbols-outlined cursor-default">send</span></button>
             </form>
         </div>
     </div>

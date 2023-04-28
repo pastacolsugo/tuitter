@@ -1,5 +1,5 @@
-<div {{ $attributes->merge(['class' => 'mt-2 bg-white dark:bg-black dark:text-white border-b border-t sm:border-x border-neutral-300 dark:border-neutral-800'])}}>
-    <div class="p-4 px-6 flex justify-start">
+<div data-replies-loaded=0 data-replies-showing=0 {{ $attributes->merge(['class' => 'mt-2 bg-white dark:bg-black dark:text-white border-b border-t sm:border-x border-neutral-300 dark:border-neutral-800'])}}>
+    <div class="p-4 px-6 flex justify-start border-neutral-300 dark:border-neutral-800">
         <figure class="mr-4 w-14 h-14 bg-black border-white object-scale-down overflow-hidden rounded-full shrink-0 flex flex-col justify-center select-none">
             @if (isset($profilePictureAsset))
                 <img src="{{ asset($profilePictureAsset) }}" class="max-h-20 object-contain">
@@ -18,7 +18,7 @@
             <div class="text-lg my-4 cursor-default break-words">{{ $content }}</div>
             <div class="flex gap-4 mt-4 justify-around text-gray-500 font-light">
                 <span data-post-id={{ $post_id }} class="like_button material-symbols-outlined cursor-default select-none">favorite</span>
-                <span data-post-id={{ $post_id }} data-replies-loaded="0" data-replies-showing="0" class="reply_button material-symbols-outlined cursor-default select-none">chat_bubble</span>
+                <span data-post-id={{ $post_id }} class="reply_button material-symbols-outlined cursor-default select-none">chat_bubble</span>
                 <span data-post-id={{ $post_id }} class="share_button material-symbols-outlined cursor-default select-none">share</span>
             </div>
         </div>
