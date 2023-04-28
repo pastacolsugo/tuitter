@@ -8,7 +8,7 @@
             </div> --}}
 
             @foreach ($posts as $post_id)
-                <x-post :id="$post_id"></x-post>
+                <x-post :id="$post_id" :settings="false"></x-post>
             @endforeach
         </div>
     </div>

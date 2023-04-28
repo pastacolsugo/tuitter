@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Like;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,10 +37,35 @@ class DatabaseSeeder extends Seeder
             Like::where('user_id', $dl->user_id)->where('post_id', $dl->post_id)->take($dl->count_)->delete();
         }
 
-
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $imgs_folder = 'database/seeders/imgs/';
+        $imgs = [
+            'cat_0.jpeg',
+            'cat_1.jpeg',
+            'cat_2.jpeg',
+            'cat_3.jpeg',
+            'cat_4.jpeg',
+            'cat_5.jpeg',
+            'cat_6.jpeg',
+            'cat_7.jpeg',
+            'default.svg',
+            'gumball.jpeg',
+            'harold.jpeg',
+            'hasbulla.jpeg',
+            'leo.jpeg',
+            'paperinoh.jpeg',
+            'pepe.jpeg',
+            'pickachu.jpeg',
+            'spongebob.jpeg',
+            'will_shrek.jpeg',
+        ];
+
+        foreach ($imgs as $img) {
+            File::copy($imgs_folder . $img, Storage::path("profile_pictures/" . $img));
+        }
     }
 }

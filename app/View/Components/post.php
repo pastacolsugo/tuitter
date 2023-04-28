@@ -17,19 +17,19 @@ class Post extends Component
         $date,
         $content,
         $profilePictureAsset,
-        $liked;
+        $liked,
+        $settings_enabled;
     /**
      * Create a new component instance.
      */
-    public function __construct($id)
+    public function __construct($id, $settings)
     {
         $this->post_id = $id;
         $post = \App\Models\Post::where('id', $id)->take(1)->get()[0];
         if ($post == null) {
             return null;
         }
-        // $user = Auth::id();
-        $user = null;
+
         $author = User::where('id', $post->author_id)->take(1)->get()[0];
         $this->author_username = $author->username;
         $this->author_name = $author->name;
@@ -37,12 +37,11 @@ class Post extends Component
         $this->date = $post->created_at->toDateTimeString();
         $this->content = $post->content;
         $this->profilePictureAsset = $author->profile_pic_asset;
-        if ($user === null) {
-            $this->liked = False;
-            return;
+        $this->liked = False;
+        $this->settings_enabled = false;
+        if ($settings != null) {
+            $this->settings_enabled = $settings;
         }
-        $liked_count = Like::where('user_id', $user->id)->where('post_id', $id)->count();
-        $this->liked = $liked_count > 0;
     }
 
     /**

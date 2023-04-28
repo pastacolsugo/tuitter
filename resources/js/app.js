@@ -149,7 +149,6 @@ function attachButtons() {
     attachLikeButtons();
     attachFollowButtons();
     attachReplyButtons();
-    attachShareButtons();
 }
 
 function setPostLikes() {

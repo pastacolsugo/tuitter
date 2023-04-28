@@ -4,11 +4,7 @@
             <div class="bg-white dark:bg-black overflow-hidden border border-neutral-300 dark:border-neutral-900">
                 <div class="p-4 text-gray-900 flex dark:text-gray-100">
                     <figure class="mr-4 w-32 h-32 bg-black border-white object-scale-down overflow-hidden rounded-full shrink-0 flex flex-col justify-center select-none">
-                        @if (isset($profilePictureAsset))
-                            <img src="{{ asset($profilePictureAsset) }}" class="max-h-32 object-contain">
-                        @else
-                            <img src="{{ asset('profile_pictures/default.svg') }}" class="max-h-32 object-contain">
-                        @endif
+                        <img src="{{ route('profile_pic', $profile_id) }}" class="max-h-32 object-contain">
                     </figure>
                     <div class="flex flex-col grow">
                         <span class="text-2xl font-bold cursor-default">{{ $name }}</span>
@@ -25,7 +21,7 @@
             </div>
 
             @foreach ($posts as $post_id)
-                <x-post :id="$post_id"></x-post>
+                <x-post :id="$post_id" :settings="$settings_enabled"></x-post>
             @endforeach
         </div>
     </div>

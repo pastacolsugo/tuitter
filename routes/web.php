@@ -104,6 +104,7 @@ Route::get('/profile/{id}', function (Request $req, string $id) {
         'following' => $following,
         'viewingUserIsFollowing' => $viewingUserIsFollowing,
         'posts' => $post_ids,
+        'settings_enabled' => ($id == $viewing_user_id),
     ]);
 })->middleware(['auth', 'verified'])->name('profile');
 
@@ -216,13 +217,30 @@ Route::get('/post/{id}', function(Request $request, string $id) {
     ]);
 })->middleware(['auth', 'verified'])->name('post');
 
+Route::get('/profile_pic/{id}', function(Request $request, $id){
+    if ($id == null) {
+        return Response('Image not found', 404);
+    }
+
+    $image = User::where("id", $id)->first()->profile_pic_asset;
+
+    if ($image == null) {
+        $image = 'profile_pictures/default.svg';
+    }
+
+    $response = Storage::response($image);
+    $response->headers->set('Cache-Control', 'public, max-age=2628000');
+
+    return $response;
+})->middleware(['auth', 'verified'])->name('profile_pic');
+
 Route::get('/letest', function(Request $req) {
     return view('letest');
 })->middleware(['auth', 'verified'])->name('letest');
 
 Route::middleware('auth')->group(function () {
     Route::get('/account', [ProfileController::class, 'edit'])->name('account.edit');
-    Route::patch('/account', [ProfileController::class, 'update'])->name('account.update');
+    Route::post('/account', [ProfileController::class, 'update'])->name('account.update');
     Route::delete('/account', [ProfileController::class, 'destroy'])->name('account.destroy');
 });
 

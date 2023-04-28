@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -21,20 +22,21 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+    public function update(Request $request) {
+        $user = User::where('id', Auth::id())->first();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->name = $request->name;
+        $user->bio = $request->bio;
+        $file = $request->file('image_upload');
+
+        if ($request->hasFile('image_upload')) {
+            $file = $request->file('image_upload')->store('profile_pictures');
+            $user->profile_pic_asset = $file;
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('account.edit');
     }
 
     /**
