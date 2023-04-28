@@ -47,7 +47,7 @@ Route::get('/like', function(Request $request) {
         return Response('not liked', 200);
     }
     return Response('liked', 200);
-});
+})->middleware(['auth', 'verified'])->name('like.get');
 
 Route::post('/like', function(Request $request) {
     if (Auth::id() === null) {
@@ -106,6 +106,11 @@ Route::get('/profile/{id}', function (Request $req, string $id) {
         'posts' => $post_ids,
     ]);
 })->middleware(['auth', 'verified'])->name('profile');
+
+Route::get('/profile', function (Request $req) {
+    $id = Auth::id();
+    return to_route('profile', ['id' => $id]);
+})->middleware(['auth', 'verified'])->name('myprofile');
 
 Route::get('/follow', function(Request $request) {
     if (Auth::id() === null) {
