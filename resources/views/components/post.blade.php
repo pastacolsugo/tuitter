@@ -10,8 +10,8 @@
         <div class="max-w-[85%] grow">
             <div class="flex justify-between items-baseline">
                 <div class="flex flex-col space-between">
-                    <div class="text-xl font-bold cursor-default">{{ $author_name }}</div>
-                    <div class="text-md text-neutral-600 dark:text-neutral-400 font-light cursor-default">&#64;{{ $author_username }}</div>
+                    <div class="text-xl font-bold cursor-default"><a href={{ route('profile', $author_id) }}>{{ $author_name }}</a></div>
+                    <div class="text-md text-neutral-600 dark:text-neutral-400 font-light cursor-default"><a href="{{ route('profile', $author_id) }}">&#64;{{ $author_username }}</a></div>
                 </div>
                 <div class="text-sm text-gray-400 cursor-default">{{ $date }}</div>
             </div>

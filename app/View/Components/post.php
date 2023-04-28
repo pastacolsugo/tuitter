@@ -13,6 +13,7 @@ class Post extends Component
     public $post_id,
         $author_username,
         $author_name,
+        $author_id,
         $date,
         $content,
         $profilePictureAsset,
@@ -32,6 +33,7 @@ class Post extends Component
         $author = User::where('id', $post->author_id)->take(1)->get()[0];
         $this->author_username = $author->username;
         $this->author_name = $author->name;
+        $this->author_id = $author->id;
         $this->date = $post->created_at->toDateTimeString();
         $this->content = $post->content;
         $this->profilePictureAsset = $author->profile_pic_asset;
