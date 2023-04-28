@@ -19,7 +19,7 @@
             <div class="flex gap-4 mt-4 justify-around text-gray-500 font-light">
                 <span data-post-id={{ $post_id }} class="like_button material-symbols-outlined cursor-default select-none">favorite</span>
                 <span data-post-id={{ $post_id }} class="reply_button material-symbols-outlined cursor-default select-none">chat_bubble</span>
-                <span data-post-id={{ $post_id }} class="share_button material-symbols-outlined cursor-default select-none">share</span>
+                <a href={{ route('post', $post_id) }}><span data-post-id={{ $post_id }} class="share_button material-symbols-outlined cursor-default select-none">share</span>
             </div>
         </div>
     </div>

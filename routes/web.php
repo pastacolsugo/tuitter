@@ -198,6 +198,19 @@ Route::post('/reply', function(Request $request) {
     $reply->save();
 })->middleware(['auth', 'verified'])->name('reply');
 
+Route::get('/post/{id}', function(Request $request, string $id) {
+    if (Auth::id() === null) {
+        return Response('User not logged in', 401);
+    }
+    if ($id === '') {
+        return redirect('home');
+    }
+
+    return view('home', [
+        'posts' => [ intval($id) ],
+    ]);
+})->middleware(['auth', 'verified'])->name('post');
+
 Route::get('/letest', function(Request $req) {
     return view('letest');
 })->middleware(['auth', 'verified'])->name('letest');
