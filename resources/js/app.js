@@ -97,7 +97,7 @@ function attachReplyButtons() {
                     .children[1]
                     .children[2];
                 reply_button.addEventListener('click', sendReply);
-            })
+            });
     }
 
     function sendReply(event) {
