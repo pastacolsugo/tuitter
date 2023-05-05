@@ -18,11 +18,14 @@ class Post extends Component
         $content,
         $profilePictureAsset,
         $liked,
-        $settings_enabled;
+        $settings_enabled,
+        $has_image,
+        $image_description,
+        $is_edit_post;
     /**
      * Create a new component instance.
      */
-    public function __construct($id, $settings)
+    public function __construct($id, $isEditPost)
     {
         $this->post_id = $id;
         $post = \App\Models\Post::where('id', $id)->take(1)->get()[0];
@@ -38,10 +41,10 @@ class Post extends Component
         $this->content = $post->content;
         $this->profilePictureAsset = $author->profile_pic_asset;
         $this->liked = False;
-        $this->settings_enabled = false;
-        if ($settings != null) {
-            $this->settings_enabled = $settings;
-        }
+        $this->settings_enabled = False;
+        $this->has_image = ($post->image != null);
+        $this->image_description = $post->image_description;
+        $this->is_edit_post = $isEditPost;
     }
 
     /**

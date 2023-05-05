@@ -13,8 +13,17 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            brightness: {
+                25: '.25',
+            }
         },
     },
 
     plugins: [require('@tailwindcss/forms')],
+
+    safelist: [
+        'text-red-500',
+        'grayscale',
+        'brightness-25',
+    ],
 };

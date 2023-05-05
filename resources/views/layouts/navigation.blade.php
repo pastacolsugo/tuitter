@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-neutral-900 border-b border-gray-100 dark:border-gray-700">
+<nav class="bg-white dark:bg-neutral-900 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -18,8 +18,15 @@
                 </div>
             </div>
 
+            <!-- Search Bar -->
+            <form role="search" class="flex flex-1 mx-10 sm:mx-32 my-3.5 border border-neutral-300 dark:border-neutral-800 focus:border-blue-500 text-gray-700" action="{{ route('search') }}" method="GET">
+                <label class="hidden" for="search">Search box</label>
+                <input id="search" type="search" aria-label="search box" name="query" value="{{ request()->get('query') }}" class="flex-1 w-auto text-sm sm:text-base border-none bg-white dark:bg-black focus:border-none" placeholder="Cerca..." required/>
+                <button type="submit" class="py-1 px-4 sm:px-3 bg-amber-400 dark:bg-amber-500 text-sm sm:text-base border-left material-symbols-outlined">search</button>
+            </form>
+
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div id="navigation-dropdown" class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -42,6 +49,10 @@
                             {{ __('Account') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('notifications')">
+                            {{ __('Notifictions') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -57,7 +68,7 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
+            <div id="navigation-hamburger" class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -69,7 +80,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div id="navigation-menu" class="hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}

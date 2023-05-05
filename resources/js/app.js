@@ -1,13 +1,3 @@
-import './bootstrap';
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
-
-const refreshRepliesEvent = new Event('refreshReplies');
-
 function attachLikeButtons() {
     function clickLike(event) {
         const postId = event.target.dataset.postId;
@@ -145,10 +135,27 @@ function attachReplyButtons() {
     document.querySelectorAll('.reply_button').forEach((b) => b.addEventListener('click', clickReply));
 }
 
+function attachMoreButtons() {
+    function moreButton(event) {
+        let more_container = event.target.parentElement.nextElementSibling;
+        console.log(more_container);
+
+        if (more_container.classList.contains('hidden')) {
+            more_container.classList.remove('hidden');
+        } else {
+            more_container.classList.add('hidden');
+        }
+    }
+
+    let buttons = document.querySelectorAll('.more_button');
+    buttons.forEach((b) => b.addEventListener('click', moreButton));
+}
+
 function attachButtons() {
     attachLikeButtons();
     attachFollowButtons();
     attachReplyButtons();
+    attachMoreButtons();
 }
 
 function setPostLikes() {
@@ -180,10 +187,59 @@ function setProfileFollow() {
         });
 }
 
+function navigationPopupMenu() {
+    function toggleNavigationMenu(event) {
+        let dropdown = document.querySelector('#dropdown');
+        if (dropdown.classList.contains('hidden')) {
+            dropdown.classList.remove('hidden');
+        } else {
+            dropdown.classList.add('hidden');
+        }
+    }
+
+    function toggleNavigationHamburger (event) {
+        let main = document.querySelector('main')
+        let menu = document.querySelector('#navigation-menu');
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            main.classList.add('grayscale');
+            main.classList.add('brightness-25');
+        } else {
+            menu.classList.add('hidden');
+            main.classList.remove('grayscale');
+            main.classList.remove('brightness-25');
+        }
+    }
+
+    let menuButton = document.querySelector('#navigation-dropdown');
+    menuButton.addEventListener('click', toggleNavigationMenu);
+
+    let hamburgerButton = document.querySelector('#navigation-hamburger');
+    hamburgerButton.addEventListener('click', toggleNavigationHamburger);
+}
+
+function setPublishPost() {
+    function showImageDescription(event) {
+        let image_description = document.querySelector("#image-description-container");
+        let input_tag = image_description.children[1];
+        if (event.target.value != '') {
+            image_description.classList.remove('hidden');
+            input_tag.required = true;
+        } else {
+            image_description.classList.add('hidden');
+            input_tag.required = false;
+        }
+    }
+    let image_upload = document.querySelector("#image-upload");
+    image_upload.addEventListener('change', showImageDescription);
+}
+
 function windowOnLoad() {
     setPostLikes();
     setProfileFollow();
     attachButtons();
+    navigationPopupMenu();
+    setPublishPost();
 }
 
 window.onload = windowOnLoad;

@@ -6,6 +6,12 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Events\NewFollow;
+use App\Events\NewLike;
+use App\Events\NewReply;
+use App\Listeners\SendNewFollowNotification;
+use App\Listeners\SendNewLikeNotification;
+use App\Listeners\SendNewReplyNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +24,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        NewFollow::class => [
+            SendNewFollowNotification::class,
+        ],
+        NewLike::class => [
+            SendNewLikeNotification::class,
+        ],
+        NewReply::class => [
+            SendNewReplyNotification::class,
+        ]
     ];
 
     /**
