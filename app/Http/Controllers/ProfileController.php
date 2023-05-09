@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\Models\User;
+use \App\Models\User;
+use \App\Models\Follow;
+use \App\Models\Like;
+use \App\Models\Reply;
+use \App\Models\Post;
 
 class ProfileController extends Controller
 {
@@ -27,6 +31,11 @@ class ProfileController extends Controller
 
         $user->name = $request->name;
         $user->bio = $request->bio;
+
+        if ($user->bio == null) {
+            $user->bio = '';
+        }
+
         $file = $request->file('image_upload');
 
         if ($request->hasFile('image_upload')) {
@@ -44,11 +53,11 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
         $user = $request->user();
+
+        Follow::where('follower', $user->id)->delete();
+        Follow::where('followee', $user->id)->delete();
+        Reply::where('author_id', $user->id)->delete();
 
         Auth::logout();
 

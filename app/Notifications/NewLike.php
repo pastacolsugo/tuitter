@@ -52,7 +52,6 @@ class NewLike extends Notification
     {
         return [
             'user_id' => $this->user->id,
-            'username' => $this->user->username,
             'post_id' => $this->post->id,
         ];
     }

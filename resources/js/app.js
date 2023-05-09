@@ -231,10 +231,50 @@ function setPublishPost() {
         }
     }
     let image_upload = document.querySelector("#image-upload");
-    image_upload.addEventListener('change', showImageDescription);
+    if (image_upload != null) {
+        image_upload.addEventListener('change', showImageDescription);
+    }
+}
+
+function setNotificationIcon() {
+    let icon = document.querySelector('#notification-icon');
+    let count = document.querySelector('#notification-count');
+    if (icon == null || count == null) {
+        return;
+    }
+    fetch('/notification-count')
+        .then(res => res.json())
+        .then(function(j) {
+            if (j.count == null || j.count == '' || j.count <= 0) {
+                return;
+            }
+            count.innerText = '' + j.count;
+            const classes = ['border', 'rounded-full', 'bg-red-500', 'border-red-500', 'text-white'];
+            classes.forEach(c => icon.firstElementChild.classList.add(c));
+        });
+}
+
+function attachSmallSearchIcon() {
+    let ssi = document.querySelector('#small-search-icon');
+    if (ssi == null) {
+        return;
+    }
+    ssi.addEventListener('click', function(event) {
+        let ssb = document.querySelector('#small-search-bar');
+        if (ssb == null) {
+            return;
+        }
+        if (ssb.classList.contains('hidden')) {
+            ssb.classList.remove('hidden');
+        } else {
+            ssb.classList.add('hidden');
+        }
+    });
 }
 
 function windowOnLoad() {
+    attachSmallSearchIcon();
+    setNotificationIcon();
     setPostLikes();
     setProfileFollow();
     attachButtons();

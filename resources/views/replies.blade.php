@@ -5,11 +5,7 @@
     <div class="py-4 px-3 border-neutral-300">
         <div class="flex items-center">
             <figure class="mr-4 w-10 h-10 bg-black border-white object-scale-down overflow-hidden rounded-full shrink-0 flex flex-col justify-center select-none">
-                @if (isset($profile_pic))
-                    <img src="{{ asset($profile_pic) }}" class="max-h-20 object-contain">
-                @else
-                    <img src="{{ asset('profile_pictures/default.svg') }}" class="max-h-20 object-contain">
-                @endif
+                <img src="{{ route('profile_pic', Auth::id()) }}" class="max-h-20 object-contain">
             </figure>
             <form class="grow flex items-bottom" action="javascript:void(0);" onkeydown="return event.key != 'Enter';">
                 <label class="hidden" for="reply-{{ $post_id }}">Write reply to post {{ $post_id }}</label>

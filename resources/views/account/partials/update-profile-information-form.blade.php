@@ -30,7 +30,7 @@
 
         <div>
             <x-input-label for="bio" :value="__('Biography')" />
-            <x-text-input id="bio" name="bio" type="text" class="mt-1 block w-full" :value="old('bio', $user->bio)" required />
+            <x-text-input id="bio" name="bio" type="text" class="mt-1 block w-full" :value="old('bio', $user->bio)"/>
         </div>
 
         <div>

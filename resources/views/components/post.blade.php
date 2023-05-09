@@ -38,7 +38,7 @@
                 </div>
                 @if ($author_id == Auth::id())
                     {{-- hidden flex is necessary, js will remove and add back hidden to show the element --}}
-                    <div class="hidden flex justify-evenly shadow-lg border-2 border-neutral-300 dark:border-neutral-800 pt-2 pb-1">
+                    <div class="hidden flex justify-evenly border border-neutral-300 dark:border-neutral-800 pt-2 pb-1">
                         <a href="{{ route('delete-post', $post_id) }}" class="px-4"><span class="delete_button material-symbols-outlined text-red-800">delete</span></a>
                         <a href="{{ route('edit-post', $post_id) }}" class="px-4"><span class="edit_button material-symbols-outlined text-gray-500">edit</span></a>
                     </div>
@@ -47,7 +47,7 @@
             @if (isset($is_edit_post) and $is_edit_post)
                     <div class="flex justify-end">
                         <label for="submit" class="hidden">Salva</label>
-                        <button type="submit" id="submit" class="py-2 px-8 border text-neutral-800 border-neutral-300 dark:border-neutral-800">Salva</button>
+                        <button type="submit" id="submit" class="mt-2 py-2 px-8 border text-neutral-800 border-neutral-300 dark:border-neutral-800">Salva</button>
                     </div>
                 </form>
             @endif

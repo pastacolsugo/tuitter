@@ -51,8 +51,7 @@ class NewReply extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'replier_id' => $this->user->id,
-            'replier_username' => $this->user->username,
+            'user_id' => $this->user->id,
             'post_id' => $this->post->id,
         ];
     }

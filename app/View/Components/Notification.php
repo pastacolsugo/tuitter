@@ -9,11 +9,13 @@ use \App\Models\User;
 
 class Notification extends Component
 {
+    public User $user;
     /**
      * Create a new component instance.
      */
-    public function __construct(public User $user, public $date, public $type)
+    public function __construct(public $dataa, public $date, public $type, public $id)
     {
+        $this->user = User::where('id', $dataa['user_id'])->first();
     }
 
     /**

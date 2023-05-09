@@ -25,5 +25,11 @@ module.exports = {
         'text-red-500',
         'grayscale',
         'brightness-25',
+        'border',
+        'rounded-full',
+        'bg-red-500',
+        'border-red-500',
+        'text-white',
+        'text-neutral-500',
     ],
 };

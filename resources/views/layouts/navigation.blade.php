@@ -18,12 +18,24 @@
                 </div>
             </div>
 
-            <!-- Search Bar -->
-            <form role="search" class="flex flex-1 mx-10 sm:mx-32 my-3.5 border border-neutral-300 dark:border-neutral-800 focus:border-blue-500 text-gray-700" action="{{ route('search') }}" method="GET">
+            {{-- Large Search Bar --}}
+            <form role="search" class="hidden sm:flex sm:flex-1 sm:mx-32 my-3.5 border border-neutral-300 dark:border-neutral-800 focus:border-blue-500 text-gray-700" action="{{ route('search') }}" method="GET">
                 <label class="hidden" for="search">Search box</label>
                 <input id="search" type="search" aria-label="search box" name="query" value="{{ request()->get('query') }}" class="flex-1 w-auto text-sm sm:text-base border-none bg-white dark:bg-black focus:border-none" placeholder="Cerca..." required/>
                 <button type="submit" class="py-1 px-4 sm:px-3 bg-amber-400 dark:bg-amber-500 text-sm sm:text-base border-left material-symbols-outlined">search</button>
             </form>
+
+            {{-- Small Search Icon --}}
+            <div id="small-search-icon" class="flex flex-col justify-around">
+                <button><span class="text-neutral-500 p-1 material-symbols-outlined">search</span></button>
+            </div>
+
+            <a id="notification-icon" href="{{ route('notifications') }}" class="flex flex-col justify-around text-neutral-500 select-none">
+                <div class="pl-2 flex justify-normal items-center">
+                    <span id="notification-count" class="h-fit text-xs"></span>
+                    <span class="p-1 material-symbols-outlined">notifications</span>
+                </div>
+            </a>
 
             <!-- Settings Dropdown -->
             <div id="navigation-dropdown" class="hidden sm:flex sm:items-center sm:ml-6">
@@ -47,10 +59,6 @@
 
                         <x-dropdown-link :href="route('account.edit')">
                             {{ __('Account') }}
-                        </x-dropdown-link>
-
-                        <x-dropdown-link :href="route('notifications')">
-                            {{ __('Notifictions') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -95,8 +103,12 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('account.edit')">
+                <x-responsive-nav-link :href="route('myprofile')">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('account.edit')">
+                    {{ __('Account') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -110,6 +122,16 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <div id="small-search-bar" class="hidden">
+        <div class="py-2 px-2 border-t border-gray-200 dark:border-gray-600">
+            <form role="search" class="flex flex-1 mx-1 my-3.5 border border-neutral-300 dark:border-neutral-800 focus:border-blue-500 text-gray-700" action="{{ route('search') }}" method="GET">
+                <label class="hidden" for="search">Search box</label>
+                <input id="search" type="search" aria-label="search box" name="query" value="{{ request()->get('query') }}" class="flex-1 w-auto text-sm sm:text-base border-none bg-white dark:bg-black focus:border-none" placeholder="Cerca..." required/>
+                <button type="submit" class="py-1 px-4 bg-amber-400 dark:bg-amber-500 text-sm sm:text-base border-left material-symbols-outlined">search</button>
+            </form>
         </div>
     </div>
 </nav>

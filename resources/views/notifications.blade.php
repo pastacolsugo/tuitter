@@ -7,8 +7,8 @@
                 </div>
             @else
                 @foreach ($unread as $n)
-                    {{ print_r($n) }}
-                    {{-- <x-notification></x-notification> --}}
+                    {{-- {{ print_r($n->data) }} --}}
+                    <x-notification :dataa="$n->data" :date="$n->created_at" :type="$n->type" :id="$n->id"></x-notification>
                 @endforeach
             @endif
         </div>

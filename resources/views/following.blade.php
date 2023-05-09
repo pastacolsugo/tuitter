@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="py-2 sm:py-6">
         <div class="max-w-xl mx-0 sm:mx-auto sm:px-6 lg:px-8">
-            <div>Followed by <b>&#64;{{ $user->username }}:</b></div>
+            <div><b>&#64;{{ $user->username }}</b> follows:</div>
             @if (count($following) > 0)
                 @foreach ($following as $f)
                     <x-user-card

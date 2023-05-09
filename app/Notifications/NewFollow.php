@@ -48,9 +48,7 @@ class NewFollow extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'follower' => $this->follower->id,
-            'follower_username' => $this->follower->username,
-            'followee' => $this->followee->id,
+            'user_id' => $this->follower->id,
         ];
     }
 }

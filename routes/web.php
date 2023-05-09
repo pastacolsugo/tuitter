@@ -31,13 +31,17 @@ Route::get('/', function () {
         array_push($followed_users_ids, $f->followee);
     }
 
-    // TODO: complete home with posts from followed people.
-
-    $raw_posts = Post::where('author_id', )->random(20);
+    $raw_posts = Post::all()->random(40);
     $posts = [];
 
     foreach ($raw_posts as $rp) {
-        array_push($posts, $rp->id);
+        if (in_arraY($rp->author_id, $followed_users_ids)) {
+            array_push($posts, $rp->id);
+        }
+    }
+
+    if (count($posts) > 20) {
+        $posts = array_slice($posts, 0, 20);
     }
 
     return view('home', [
@@ -239,6 +243,7 @@ Route::get('/post/{id}', function(Request $request, string $id) {
 
     return view('home', [
         'showPublish' => false,
+        'isEditPost' => false,
         'posts' => [ intval($id) ],
     ]);
 })->middleware(['auth', 'verified'])->name('post');
@@ -255,7 +260,7 @@ Route::get('/profile_pic/{id}', function(Request $request, $id){
     }
 
     $response = Storage::response($image);
-    $response->headers->set('Cache-Control', 'public, max-age=2628000');
+    // $response->headers->set('Cache-Control', 'public, max-age=10');
 
     return $response;
 })->middleware(['auth', 'verified'])->name('profile_pic');
@@ -268,32 +273,40 @@ Route::get('/notifications', function(Request $request) {
     ]);
 })->middleware(['auth', 'verified'])->name('notifications');
 
-Route::post('/notifications/mark-as-read/{id}', function(Request $request, $id) {
+Route::get('/notifications/mark-as-read/{id}', function(Request $request, $id) {
     if ($id == 'all'){
         auth()->user()->unreadNotifications->markAsRead();
-    } else {
-        auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+        return redirect()->route('home');
     }
-    return redirect('notifications');
+    return redirect()->route('view-notification', $id);
 })->middleware(['auth', 'verified'])->name('mark_notifications');
 
 Route::get('/notification/{id}', function(Request $request, $id){
     if (Auth::user()->unreadNotifications->where('id', $id)->count() == 0) {
         return abort(404);
     }
-    $notification = Notification::where('id', $id)->first();
+    $notification = auth()->user()->notifications->where('id', $id)->first();
+    $type = $notification->type;
+    $user_id = 0;
+    $post_id = 0;
+    if (isset($notification->data['user_id'])) {
+        $user_id = $notification->data['user_id'];
+    }
+    if (isset($notification->data['post_id'])) {
+        $post_id = $notification->data['post_id'];
+    }
     $notification->markAsRead();
     $notification->save();
 
-    switch ($notification) {
-        case '\App\Notifications\NewFollow':
-            return redirect('profile', $notification->data->follower);
-        case '\App\Notifications\NewLike':
-            return redirect('post', $notification->data->post_id);
-        case '\App\notifications\NewReply':
-            return redirect('post', $notification->data->post_id);
+    switch ($notification->type) {
+        case 'App\Notifications\NewFollow':
+            return redirect()->route('profile', $user_id);
+        case 'App\Notifications\NewLike':
+            return redirect()->route('post', $post_id);
+        case 'App\Notifications\NewReply':
+            return redirect()->route('post', $post_id);
         default:
-            return redirect('home');
+            return redirect()->route('home');
     }
 })->middleware(['auth', 'verified'])->name('view-notification');
 
@@ -413,7 +426,7 @@ Route::post('/edit-post/{id}', function (Request $request, $id) {
     $post->content = $request->content;
     $post->save();
 
-    return redirect()->route('home');
+    return redirect()->route('post', $id);
 })->middleware(['auth', 'verified'])->name('edit-post');
 
 Route::get('/delete-post/{id}', function(Request $request, $id) {
@@ -429,6 +442,11 @@ Route::get('/delete-post/{id}', function(Request $request, $id) {
 
     return redirect()->route('profile', Auth::id());
 })->middleware(['auth', 'verified'])->name('delete-post');
+
+Route::get('/notification-count', function () {
+    $unreadCount = auth()->user()->unreadNotifications->count();
+    return response()->json(['count' => $unreadCount]);
+})->middleware(['auth', 'verified'])->name('notification-count');
 
 Route::middleware('auth')->group(function () {
     Route::get('/account', [ProfileController::class, 'edit'])->name('account.edit');
