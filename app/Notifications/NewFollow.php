@@ -37,7 +37,9 @@ class NewFollow extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line("$this->follower started following you!");
+                    ->line("@" . $this->follower->username . " started following you!")
+                    ->action('Go to @' . $this->follower->username . "'s profile", route('profile', $this->follower->id))
+                    ->line("Thank you for using Tuitter!");
     }
 
     /**

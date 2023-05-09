@@ -38,9 +38,9 @@ class NewLike extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line("@" . $this->user->username . " liked your post!")
+                    ->action('See the post', route('post', $this->post->id))
+                    ->line('Thank you for using Tuitter!');
     }
 
     /**
