@@ -26,7 +26,7 @@
             </form>
 
             {{-- Small Search Icon --}}
-            <div id="small-search-icon" class="flex flex-col justify-around">
+            <div id="small-search-icon" class="sm:hidden flex flex-col justify-around">
                 <button><span class="text-neutral-500 p-1 material-symbols-outlined">search</span></button>
             </div>
 
